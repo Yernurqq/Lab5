@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task List</title>
+</head>
+<body>
+<nav>
+  <div></div>
+  <div>
+    <span th:text="${username}"></span>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</nav>
+
+<div>
+  <div>
+    <div>
+      <h1>Your Tasks</h1>
+      <form th:action="@{/tasks/new}" method="get">
+        <button type="submit">Create New Task</button>
+      </form>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="task : ${tasks}">
+        <td>
+          <a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.getTitle()}"></a>
+        </td>
+        <td th:text="${task.getDescription()}"></td>
+        <td th:text="${task.getDueDate()}"></td>
+        <td th:text="${task.getPriority()}"></td>
+        <td>
+          <span th:text="${task.getStatus()}"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

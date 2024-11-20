@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+</head>
+<body>
+<div>
+    <h1>Task management app</h1>
+</div>
+<div>
+    <nav>
+        <a href="/tasks">Back to Task List</a>
+        <div>Lab5</div>
+        <div>
+            <span th:text="${username}"></span>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div>
+        <h1 th:text="${task.getTitle()}"></h1>
+        <p><strong>Description: </strong><span th:text="${task.getDescription()}"></span></p>
+        <p><strong>Due Date: </strong><span th:text="${task.getDueDate()}"></span></p>
+        <p><strong>Status: </strong><span th:text="${task.getStatus()}"></span></p>
+        <p><strong>Priority: </strong><span th:text="${task.getPriority()}"></span></p>
+
+        <a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">Edit Task</a>
+        <form th:if="${#strings.toLowerCase(task.getStatus())} != 'Completed'"
+              th:action="@{/tasks/complete/{id}(id=${task.getId()})}"
+              method="post">
+            <button type="submit">Complete Task</button>
+        </form>
+        <a th:href="@{/tasks/delete/{id}(id=${task.id})}"
+           onclick="return confirm('Are you sure? This action cannot be undone.');">Delete</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+<div>
+    <div>
+        <div>
+            <h1>Lab5</h1>
+            <p></p>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <h2>Log in</h2>
+            <form action="#" th:action="@{/login}" method="post">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Log in</button>
+            </form>
+            <div>
+                <p>Don't have an account? <a th:href="@{/signup}">Sign up</a></p>
+            </div>
+            <div th:if="${param.error}">
+                <p>Incorrect username or password.</p>
+            </div>
+            <div th:if="${param.expired}">
+                <p>Your session has expired. Please log in again.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
