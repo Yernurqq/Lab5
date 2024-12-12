@@ -23,13 +23,13 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
+    //обрабатывает гет запрос на /signup, отображает форму регистрации для нового пользователя
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "signup";
     }
-
+    //Обрабатывает пост запрос на /signup, регистрирует нового пользователя, проверяет уникальность имени пользователя и почту
     @PostMapping("/signup")
     public String registerUser(User user, RedirectAttributes redirectAttributes) {
         if (userService.usernameExists(user.getUsername())) {
@@ -43,17 +43,17 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", "Registration successful!");
         return "redirect:/success";
     }
-
+    //отображает форму успешной регистрации
     @GetMapping("/success")
     public String showSuccessPage() {
         return "success";
     }
-
+    //отображает форму для входа в систему
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
-
+    //отображает информацию о текущем пользователе и сессии
     @GetMapping("/test-session")
     public String testSession(Model model, HttpSession session, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {

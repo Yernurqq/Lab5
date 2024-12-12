@@ -35,7 +35,7 @@ public class TaskController {
 
     @Autowired
     private UserService userService;
-
+    //обрабатывает гет запрос на /tasks, отображает список задач для текущего пользователя с возможностью фильтрации по статусу и категории
     @GetMapping
     public String listTasks(Authentication authentication, Model model,
                             @RequestParam(required = false) Long categoryId,
@@ -59,7 +59,7 @@ public class TaskController {
 
         return "task/list";
     }
-
+    //обрабатывает гет запрос на /tasks/new, отображает форму для создания новой задачи
     @GetMapping("/new")
     public String showCreateTaskForm(Authentication authentication, Model model) {
         User user = userService.getUserByUsername(authentication.getName());
@@ -71,7 +71,7 @@ public class TaskController {
 
         return "task/edit";
     }
-
+    //обрабатывает пост запросы на /tasks, создает новую задачу для текущего пользователя
     @PostMapping
     public String createTask(@Valid @ModelAttribute("task") Task task,
                              BindingResult result,
@@ -95,7 +95,7 @@ public class TaskController {
 
         return "redirect:/tasks";
     }
-
+    //обрабатывает гет запросы на /tasks/edit/{id}, отображает форму для редактирования уже имеющихся задач
     @GetMapping("/edit/{id}")
     public String showEditTaskForm(@PathVariable Long id, Authentication authentication, Model model) {
         User user = userService.getUserByUsername(authentication.getName());
@@ -113,7 +113,7 @@ public class TaskController {
 
         return "task/edit";
     }
-
+    //обрабатывает пост запрос на /tasks/edit/{id}, обновляет существующую задачу для текущего пользователя и проверяет корректность изменений
     @PostMapping("/edit/{id}")
     public String editTask(@PathVariable Long id,
                            @Valid @ModelAttribute("task") Task updatedTask,
@@ -145,7 +145,7 @@ public class TaskController {
 
         return "redirect:/tasks";
     }
-
+    //обрабатывает пост запрос на /tasks/complete/{id}, помечает задачу как завершенную
     @PostMapping("/complete/{id}")
     public String completeTask(@PathVariable Long id, Authentication authentication) {
         User user = userService.getUserByUsername(authentication.getName());
@@ -162,7 +162,7 @@ public class TaskController {
 
         return "redirect:/tasks";
     }
-
+    //обрабатывает гет запрос на /tasks/delete/{id}, удаляет задачу для текущего пользователя
     @GetMapping("/delete/{id}")
     public String deleteTask(@PathVariable Long id, Authentication authentication) {
         User user = userService.getUserByUsername(authentication.getName());
@@ -174,7 +174,7 @@ public class TaskController {
 
         return "redirect:/tasks";
     }
-
+    //обрабатывает гет запрос на /tasks/{id},отображает детали задачи для текущего пользователя
     @GetMapping("/{id}")
     public String viewTaskDetails(@PathVariable Long id, Authentication authentication, Model model) {
         User user = userService.getUserByUsername(authentication.getName());

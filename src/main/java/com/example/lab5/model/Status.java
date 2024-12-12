@@ -14,11 +14,9 @@ public class Status {
     @Column(nullable = false, unique = true)
     private String status;
 
-    // Relationship with tasks for querying purposes
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
